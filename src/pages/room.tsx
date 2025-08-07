@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { Header } from "../components/Header";
 import { PockerTable } from "../components/PockerTable";
 import { Welcome } from "./welcome";
@@ -6,8 +6,10 @@ import { Welcome } from "./welcome";
 export function Room() {
   const location = useLocation();
   const { userId } = location.state || {};
+  const [searchParams] = useSearchParams();
+  let roomId = searchParams.get("room");
 
-  if (!userId) {
+  if (!userId || !roomId) {
     return <Welcome />;
   }
 

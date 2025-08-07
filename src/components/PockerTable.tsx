@@ -63,7 +63,7 @@ function CountDown(props: { onClick: () => void; onFinished: () => void }) {
 export function PockerTable() {
   const [searchParams] = useSearchParams();
   const roomId = searchParams.get("room");
-  const userId = sessionStorage.getItem("id");
+  const userId = localStorage.getItem("id");
   const [status, setStatus] = useState<string>(TableStatus.NEW);
   const [selectedCard, setSelectedCard] = useState<string>("");
   const { data, loading, error } = useRealtimeData(`/${roomId}`);
@@ -129,7 +129,6 @@ export function PockerTable() {
   const onStartNew = () => {
     data.map((item) => {
       writeData(`/${roomId}/${item.userId}`, {
-        isHost: item.isHost,
         name: item.name,
         status: TableStatus.NEW,
         vote: "",
@@ -148,8 +147,8 @@ export function PockerTable() {
         <div className="grid grid-cols-4 gap-7">
           <div className="col-span-4">
             <div className="flex justify-center items-center h-20 gap-10">
-              {top.map((card) => (
-                <div className="flex flex-col items-center gap-2">
+              {top.map((card, index) => (
+                <div key={index} className="flex flex-col items-center gap-2">
                   <div
                     className={`${
                       Boolean(card.vote) && status !== TableStatus.REVEALED
@@ -165,8 +164,8 @@ export function PockerTable() {
             </div>
           </div>
           <div className="flex flex-col justify-center items-end">
-            {left.map((card) => (
-              <div className="flex flex-col items-center gap-2">
+            {left.map((card, index) => (
+              <div key={index} className="flex flex-col items-center gap-2">
                 <div
                   className={`${
                     Boolean(card.vote) && status !== TableStatus.REVEALED
@@ -208,8 +207,8 @@ export function PockerTable() {
             </div>
           </div>
           <div className="flex justify-start items-center">
-            {right.map((card) => (
-              <div className="flex flex-col items-center gap-2">
+            {right.map((card, index) => (
+              <div key={index} className="flex flex-col items-center gap-2">
                 <div
                   className={`${
                     Boolean(card.vote) && status !== TableStatus.REVEALED
@@ -225,8 +224,8 @@ export function PockerTable() {
           </div>
           <div className="col-span-4">
             <div className="flex justify-center items-center h-20 gap-10">
-              {bottom.map((card) => (
-                <div className="flex flex-col items-center gap-2">
+              {bottom.map((card, index) => (
+                <div key={index} className="flex flex-col items-center gap-2">
                   <div
                     className={`${
                       Boolean(card.vote) && status !== TableStatus.REVEALED
@@ -245,8 +244,8 @@ export function PockerTable() {
       </div>
       {status === TableStatus.REVEALED ? (
         <div className="flex justify-center py-10 gap-5">
-          {voteResults.results.map(([key, value]) => (
-            <div className="flex flex-col items-center gap-2">
+          {voteResults.results.map(([key, value], index) => (
+            <div key={index} className="flex flex-col items-center gap-2">
               <div className="flex justify-center items-center w-14 h-24 rounded-lg border-2 border-white text-lg">
                 {key}
               </div>

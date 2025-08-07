@@ -1,12 +1,11 @@
+import { onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
-import { ref, onValue } from "firebase/database";
 import { database } from "../services/firebase";
 
 export interface Card {
   userId: string;
   name: string;
   vote: string;
-  isHost: boolean;
   status: string;
 }
 
@@ -28,7 +27,6 @@ export function useRealtimeData(path: string) {
               ...(value as {
                 name: string;
                 vote: string;
-                isHost: boolean;
                 status: string;
               }),
             }))
