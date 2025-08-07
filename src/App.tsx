@@ -1,13 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Room } from "./pages/room";
-import { Welcome } from "./pages/welcome";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/:roomId" element={<Room />} />
+        <Route path="/planning-poker" element={<Room />} />
       </Routes>
     </Router>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useRealtimeData, type Card } from "../hooks/useRealtimeData";
 import { writeData } from "../services/firebase";
 import { Loading } from "./Loading";
@@ -53,11 +53,16 @@ function CountDown(props: { onClick: () => void; onFinished: () => void }) {
     }
   }, [done]);
 
-  return <div className="animate-ping duration-1000 text-6xl">{count}</div>;
+  return (
+    <div className="animate-ping duration-1000 text-3xl md:text-4xl lg:text-5xl">
+      {count}
+    </div>
+  );
 }
 
 export function PockerTable() {
-  const { roomId } = useParams();
+  const [searchParams] = useSearchParams();
+  const roomId = searchParams.get("room");
   const userId = sessionStorage.getItem("id");
   const [status, setStatus] = useState<string>(TableStatus.NEW);
   const [selectedCard, setSelectedCard] = useState<string>("");
@@ -66,7 +71,9 @@ export function PockerTable() {
 
   useEffect(() => {
     if (data.some((item) => item.status === "new")) {
-      setSelectedCard("");
+      const foundCard = data.filter((item) => item.userId === userId);
+      const myCard = foundCard.length > 0 ? foundCard[0] : undefined;
+      setSelectedCard(myCard?.vote ?? "");
       setStatus(TableStatus.NEW);
     }
 
@@ -91,7 +98,9 @@ export function PockerTable() {
       map.set(vote, (map.get(vote) ?? 0) + 1);
     });
 
-    const results = Array.from(map);
+    const results = Array.from(map)
+      .filter(([vote]) => vote !== 0)
+      .sort((a, b) => a[0] - b[0]);
     const totalVotes = results.reduce(
       (sum, [vote, count]) => sum + vote * count,
       0
@@ -106,7 +115,6 @@ export function PockerTable() {
     if (selectedCard && selectedCard === point) {
       writeData(`/${roomId}/${userId}/vote`, "");
       setSelectedCard("");
-      setStatus(TableStatus.NEW);
     } else {
       writeData(`/${roomId}/${userId}/vote`, point);
       setSelectedCard(point);
@@ -133,11 +141,9 @@ export function PockerTable() {
   if (error) return <p>Error: {error.message}</p>;
 
   const { left, top, right, bottom } = dealCards(data);
-  const foundCard = data.filter((item) => item.userId === userId);
-  const myCard = foundCard.length > 0 ? foundCard[0] : undefined;
 
   return (
-    <div className="container mx-auto flex flex-col grow">
+    <div className="container mx-auto px-2 flex flex-col grow">
       <div className="flex justify-center items-center grow">
         <div className="grid grid-cols-4 gap-7">
           <div className="col-span-4">
@@ -176,9 +182,8 @@ export function PockerTable() {
           </div>
           <div className="col-span-2">
             <div
-              className={`${
-                data.some((item) => item.vote) ? "glowing" : ""
-              } relative flex justify-center items-center w-80 h-40 bg-slate-700 rounded-2xl`}
+              className={`${status === TableStatus.READY ? "glowing" : ""}
+               relative flex justify-center items-center p-4 min-w-40 min-h-20 min-lg:w-80 min-lg:h-40 min-md:w-60 min-md:h-30 bg-slate-700 rounded-2xl`}
             >
               {status === TableStatus.NEW && <p>Pick your cards!</p>}
               {status === TableStatus.READY && (
@@ -260,12 +265,12 @@ export function PockerTable() {
       ) : (
         <div className="pt-7 pb-10">
           <p className="text-center mb-7">Choose your card 👇</p>
-          <div className="flex justify-center items-center gap-4">
+          <div className="flex flex-wrap justify-center items-center gap-4">
             {cardDeck.map((deck) => (
               <button
                 key={deck}
                 className={`${
-                  selectedCard === deck || myCard?.vote === deck
+                  selectedCard === deck
                     ? "bg-sky-500 text-white hover:bg-sky-500"
                     : "hover:bg-slate-700"
                 } cursor-pointer flex justify-center items-center w-14 h-24 rounded-lg border-2 border-sky-500 text-sky-500 text-lg hover:-translate-y-1 transition-transform`}
