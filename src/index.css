@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+body {
+  @apply bg-slate-800 text-white;
+}
+
+button {
+  @apply duration-250;
+}
+
+.glowing::before {
+  content: "";
+  @apply border-2 border-sky-600 rounded-2xl block absolute left-0 top-0 right-0 bottom-0 shadow-[0_0_20px_5px_rgba(59,130,246,0.7)] animate-pulse pointer-events-none;
+}
+
+.card.voted {
+  background: linear-gradient(
+      45deg,
+      #3993ff 12%,
+      transparent 0,
+      transparent 88%,
+      #3993ff 0
+    ),
+    linear-gradient(
+      135deg,
+      transparent 37%,
+      #1a7bf2 0,
+      #1a7bf2 63%,
+      transparent 0
+    ),
+    linear-gradient(
+      45deg,
+      transparent 37%,
+      #3993ff 0,
+      #3993ff 63%,
+      transparent 0
+    ),
+    #74b3ff;
+  background-size: 17px 17px;
+}
