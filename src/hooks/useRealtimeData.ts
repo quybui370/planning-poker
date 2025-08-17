@@ -22,14 +22,16 @@ export function useRealtimeData(path: string) {
         if (snapshot.exists()) {
           const obj = snapshot.val();
           setData(
-            Object.entries(obj).map(([key, value]) => ({
-              userId: key,
-              ...(value as {
-                name: string;
-                vote: string;
-                status: string;
-              }),
-            }))
+            Object.entries(obj)
+              .filter(([_, value]) => (value as Card).name?.trim() !== "")
+              .map(([key, value]) => ({
+                userId: key,
+                ...(value as {
+                  name: string;
+                  vote: string;
+                  status: string;
+                }),
+              }))
           );
         } else {
           setData([]);

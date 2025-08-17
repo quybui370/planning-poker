@@ -15,7 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-const writeData = (path: string, value: string | number | object) => {
+const writeData = (path: string, value: string | number | object | null) => {
   set(ref(database, path), value);
 };
 

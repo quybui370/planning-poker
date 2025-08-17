@@ -2,6 +2,7 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import { Header } from "../components/Header";
 import { PockerTable } from "../components/PockerTable";
 import { Welcome } from "./welcome";
+import { writeData } from "../services/firebase";
 
 export function Room() {
   const location = useLocation();
@@ -16,7 +17,11 @@ export function Room() {
 
   return (
     <div className="flex flex-col min-h-dvh">
-      <Header />
+      <Header
+        onExitGame={() => {
+          writeData(`/${roomId}/${userId}`, null);
+        }}
+      />
       <PockerTable />
     </div>
   );

@@ -60,6 +60,32 @@ function CountDown(props: { onClick: () => void; onFinished: () => void }) {
   );
 }
 
+function Card(props: {
+  isVoted: boolean;
+  name: string;
+  vote: string;
+  status: string;
+}) {
+  return (
+    <>
+      <div
+        className={`${
+          props.isVoted && props.status !== TableStatus.REVEALED
+            ? "voted"
+            : `bg-slate-700 border-2 ${
+                props.status === TableStatus.REVEALED
+                  ? "border-sky-500"
+                  : "border-slate-500"
+              }`
+        } card flex justify-center items-center w-9 h-15 rounded-lg font-bold`}
+      >
+        {props.status === TableStatus.REVEALED ? props.vote : ""}
+      </div>
+      <div className="font-bold">{props.name}</div>
+    </>
+  );
+}
+
 export function PockerTable() {
   const [searchParams] = useSearchParams();
   const roomId = searchParams.get("room");
@@ -149,16 +175,12 @@ export function PockerTable() {
             <div className="flex justify-center items-center h-20 gap-10">
               {top.map((card, index) => (
                 <div key={index} className="flex flex-col items-center gap-2">
-                  <div
-                    className={`${
-                      Boolean(card.vote) && status !== TableStatus.REVEALED
-                        ? "voted"
-                        : "bg-slate-700 border-2 border-sky-500"
-                    } card flex justify-center items-center w-9 h-15 rounded-lg font-bold`}
-                  >
-                    {status === TableStatus.REVEALED ? card.vote : ""}
-                  </div>
-                  <div className="font-bold">{card.name}</div>
+                  <Card
+                    isVoted={Boolean(card.vote)}
+                    name={card.name}
+                    vote={card.vote}
+                    status={status}
+                  />
                 </div>
               ))}
             </div>
@@ -166,16 +188,12 @@ export function PockerTable() {
           <div className="flex flex-col justify-center items-end">
             {left.map((card, index) => (
               <div key={index} className="flex flex-col items-center gap-2">
-                <div
-                  className={`${
-                    Boolean(card.vote) && status !== TableStatus.REVEALED
-                      ? "voted"
-                      : "bg-slate-700 border-2 border-sky-500"
-                  } card flex justify-center items-center w-9 h-15 rounded-lg font-bold`}
-                >
-                  {status === TableStatus.REVEALED ? card.vote : ""}
-                </div>
-                <div className="font-bold">{card.name}</div>
+                <Card
+                  isVoted={Boolean(card.vote)}
+                  name={card.name}
+                  vote={card.vote}
+                  status={status}
+                />
               </div>
             ))}
           </div>
@@ -209,16 +227,12 @@ export function PockerTable() {
           <div className="flex justify-start items-center">
             {right.map((card, index) => (
               <div key={index} className="flex flex-col items-center gap-2">
-                <div
-                  className={`${
-                    Boolean(card.vote) && status !== TableStatus.REVEALED
-                      ? "voted"
-                      : "bg-slate-700 border-2 border-sky-500"
-                  } card flex justify-center items-center w-9 h-15 rounded-lg font-bold`}
-                >
-                  {status === TableStatus.REVEALED ? card.vote : ""}
-                </div>
-                <div className="font-bold">{card.name}</div>
+                <Card
+                  isVoted={Boolean(card.vote)}
+                  name={card.name}
+                  vote={card.vote}
+                  status={status}
+                />
               </div>
             ))}
           </div>
@@ -226,16 +240,12 @@ export function PockerTable() {
             <div className="flex justify-center items-center h-20 gap-10">
               {bottom.map((card, index) => (
                 <div key={index} className="flex flex-col items-center gap-2">
-                  <div
-                    className={`${
-                      Boolean(card.vote) && status !== TableStatus.REVEALED
-                        ? "voted"
-                        : "bg-slate-700 border-2 border-sky-500"
-                    } card flex justify-center items-center w-9 h-15 rounded-lg font-bold`}
-                  >
-                    {status === TableStatus.REVEALED ? card.vote : ""}
-                  </div>
-                  <div className="font-bold">{card.name}</div>
+                  <Card
+                    isVoted={Boolean(card.vote)}
+                    name={card.name}
+                    vote={card.vote}
+                    status={status}
+                  />
                 </div>
               ))}
             </div>
