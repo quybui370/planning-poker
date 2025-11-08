@@ -215,12 +215,17 @@ export function PockerTable() {
                 <CountDown onClick={onStartNew} onFinished={onRevealedCard} />
               )}
               {status === TableStatus.REVEALED && (
-                <button
-                  onClick={onStartNew}
-                  className="bg-slate-500 hover:bg-slate-400 rounded-lg py-3 px-4 cursor-pointer"
-                >
-                  Start new voting
-                </button>
+                <>
+                  <div className="fireworks">
+                    <div className="before"></div>
+                  </div>
+                  <button
+                    onClick={onStartNew}
+                    className="bg-slate-500 hover:bg-slate-400 rounded-lg py-3 px-4 cursor-pointer"
+                  >
+                    Start new voting
+                  </button>
+                </>
               )}
             </div>
           </div>
