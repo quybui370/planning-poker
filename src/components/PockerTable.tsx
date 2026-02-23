@@ -72,7 +72,7 @@ function Card(props: {
         className={`${
           props.isVoted && props.status !== TableStatus.REVEALED
             ? "voted"
-            : `bg-slate-700 border-2 ${
+            : `bg-slate-700/50 backdrop-blur-xs border-2 ${
                 props.status === TableStatus.REVEALED
                   ? "border-sky-500"
                   : "border-slate-500"
@@ -129,7 +129,7 @@ export function PockerTable() {
       .sort((a, b) => a[0] - b[0]);
     const totalVotes = results.reduce(
       (sum, [vote, count]) => sum + vote * count,
-      0
+      0,
     );
     const totalCount = results.reduce((sum, [_, count]) => sum + count, 0);
     const average = totalCount > 0 ? (totalVotes / totalCount).toFixed(1) : "0";
@@ -199,8 +199,8 @@ export function PockerTable() {
           </div>
           <div className="col-span-2">
             <div
-              className={`${status === TableStatus.READY ? "glowing" : ""}
-               relative flex justify-center items-center p-4 min-w-40 min-h-20 min-lg:w-80 min-lg:h-40 min-md:w-60 min-md:h-30 bg-slate-700 rounded-2xl`}
+              className={`${status === TableStatus.READY ? "glowing" : "border-2 border-slate-500"}
+               relative flex justify-center items-center p-4 min-w-40 min-h-20 min-lg:w-80 min-lg:h-40 min-md:w-60 min-md:h-30 bg-slate-700/50 backdrop-blur-xs rounded-2xl`}
             >
               {status === TableStatus.NEW && <p>Pick your cards!</p>}
               {status === TableStatus.READY && (
@@ -286,7 +286,7 @@ export function PockerTable() {
                 className={`${
                   selectedCard === deck
                     ? "bg-sky-500 text-white hover:bg-sky-500"
-                    : "hover:bg-slate-700"
+                    : "bg-slate-700/50 backdrop-blur-xs hover:bg-slate-700"
                 } cursor-pointer flex justify-center items-center w-14 h-24 rounded-lg border-2 border-sky-500 text-sky-500 text-lg hover:-translate-y-1 transition-transform`}
                 onClick={() => onSelectCard(deck)}
               >

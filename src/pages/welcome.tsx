@@ -3,6 +3,16 @@ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Header } from "../components/Header";
 import { writeData } from "../services/firebase";
+import Snowfall from "react-snowfall";
+import bg from "../assets/bg.jpg";
+import snowflake1 from "../assets/snowflake-1.png";
+import snowflake2 from "../assets/snowflake-2.png";
+
+const snowflakeImages = [snowflake1, snowflake2].map((src) => {
+  const img = document.createElement("img");
+  img.src = src;
+  return img;
+});
 
 export function Welcome() {
   const navigate = useNavigate();
@@ -34,34 +44,49 @@ export function Welcome() {
   };
 
   return (
-    <div className="flex flex-col min-h-dvh">
-      <Header />
-      <div className="container mx-auto px-2 flex justify-center items-center grow">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit();
-          }}
-          className="flex flex-col items-center w-96 bg-slate-700 rounded-2xl p-10 gap-7"
-        >
-          {!localStorage.getItem("name")?.trim() ? (
-            <>
-              <h1 className="font-medium text-xl">Choose your display name</h1>
-              <div className="w-full">
-                <input
-                  onChange={(e) => setName(e.target.value)}
-                  className="p-1 mb-2 border-2 rounded w-full border-slate-500"
-                />
-                <p className="text-red-400">{error}</p>
-              </div>
-            </>
-          ) : (
-            <h1 className="font-medium text-xl">Welcome back</h1>
-          )}
-          <button className="bg-sky-600 hover:bg-sky-500 rounded-lg py-3 px-4 cursor-pointer">
-            {isHost ? "Start a new game" : "Join room"}
-          </button>
-        </form>
+    <div
+      className="relative flex flex-col min-h-dvh bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${bg})` }}
+    >
+      <div className="absolute inset-0 bg-black/30 flex flex-col">
+        <Snowfall
+          snowflakeCount={100}
+          speed={[0.5, 1]}
+          wind={[0, 1]}
+          images={snowflakeImages}
+          radius={[5, 10]}
+          opacity={[0.5, 0.5]}
+        />
+        <Header />
+        <div className="container mx-auto px-2 flex justify-center items-center grow">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+            className="flex flex-col items-center w-96 bg-slate-700/50 backdrop-blur-sm border-2 border-slate-500 rounded-2xl p-10 gap-7"
+          >
+            {!localStorage.getItem("name")?.trim() ? (
+              <>
+                <h1 className="font-medium text-xl">
+                  Choose your display name
+                </h1>
+                <div className="w-full">
+                  <input
+                    onChange={(e) => setName(e.target.value)}
+                    className="p-1 mb-2 border-2 rounded w-full border-slate-500"
+                  />
+                  <p className="text-red-400">{error}</p>
+                </div>
+              </>
+            ) : (
+              <h1 className="font-medium text-xl">Welcome back</h1>
+            )}
+            <button className="bg-sky-600 hover:bg-sky-500 rounded-lg py-3 px-4 cursor-pointer">
+              {isHost ? "Start a new game" : "Join room"}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
