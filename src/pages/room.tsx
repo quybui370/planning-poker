@@ -27,10 +27,10 @@ export function Room() {
 
   return (
     <div
-      className="relative flex flex-col min-h-dvh bg-cover bg-center bg-no-repeat"
+      className="relative min-h-dvh bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${bg})` }}
     >
-      <div className="absolute inset-0 bg-black/30">
+      <div className="flex flex-col absolute inset-0 bg-black/30">
         <Snowfall
           snowflakeCount={100}
           speed={[0.5, 1]}
