@@ -271,7 +271,7 @@ export function PockerTable() {
           ))}
           <div className="flex flex-col items-center ml-4">
             <p className="mb-1">Average:</p>
-            <p className="font-bold text-4xl text-sky-500">
+            <p className="font-bold text-4xl text-white">
               {voteResults.average}
             </p>
           </div>
@@ -287,7 +287,7 @@ export function PockerTable() {
                   selectedCard === deck
                     ? "bg-sky-500 text-white hover:bg-sky-500"
                     : "bg-slate-700/50 backdrop-blur-xs hover:bg-slate-700"
-                } cursor-pointer flex justify-center items-center w-14 h-24 rounded-lg border-2 border-sky-500 text-sky-500 text-lg hover:-translate-y-1 transition-transform`}
+                } cursor-pointer flex justify-center items-center w-14 h-24 rounded-lg border-2 border-sky-500 text-white text-lg hover:-translate-y-1 transition-transform`}
                 onClick={() => onSelectCard(deck)}
               >
                 {deck}

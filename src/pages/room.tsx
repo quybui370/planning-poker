@@ -1,18 +1,11 @@
 import { useLocation, useSearchParams } from "react-router-dom";
-import Snowfall from "react-snowfall";
-import bg from "../assets/bg.jpg";
-import snowflake1 from "../assets/snowflake-1.png";
-import snowflake2 from "../assets/snowflake-2.png";
 import { Header } from "../components/Header";
+import Particles from "../components/Particles";
 import { PockerTable } from "../components/PockerTable";
+import { Share } from "../components/Share";
 import { writeData } from "../services/firebase";
 import { Welcome } from "./welcome";
-
-const snowflakeImages = [snowflake1, snowflake2].map((src) => {
-  const img = document.createElement("img");
-  img.src = src;
-  return img;
-});
+import SplashCursor from "../components/SplashCursor";
 
 export function Room() {
   const location = useLocation();
@@ -26,26 +19,28 @@ export function Room() {
   }
 
   return (
-    <div
-      className="relative min-h-dvh bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${bg})` }}
+    <Particles
+      particleColors={["#ffffff"]}
+      particleCount={500}
+      particleSpread={15}
+      speed={0.1}
+      particleBaseSize={150}
+      moveParticlesOnHover
+      alphaParticles={true}
+      disableRotation={true}
+      pixelRatio={1}
+      className="relative min-h-dvh flex flex-col"
     >
-      <div className="flex flex-col absolute inset-0 bg-black/30">
-        <Snowfall
-          snowflakeCount={100}
-          speed={[0.5, 1]}
-          wind={[0, 1]}
-          images={snowflakeImages}
-          radius={[5, 10]}
-          opacity={[0.5, 0.5]}
-        />
-        <Header
-          onExitGame={() => {
-            writeData(`/${roomId}/${userId}`, null);
-          }}
-        />
-        <PockerTable />
+      <SplashCursor />
+      <Header
+        onExitGame={() => {
+          writeData(`/${roomId}/${userId}`, null);
+        }}
+      />
+      <PockerTable />
+      <div className="fixed bottom-10 right-10">
+        <Share />
       </div>
-    </div>
+    </Particles>
   );
 }

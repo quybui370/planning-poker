@@ -1,11 +1,31 @@
 @import "tailwindcss";
 
 body {
-  @apply bg-slate-800 text-white;
+  @apply text-white;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("/src/assets/galaxy.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 button {
   @apply duration-250;
+}
+
+.particles-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.particles-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .glowing::before {
@@ -14,7 +34,8 @@ button {
 }
 
 .card.voted {
-  background: linear-gradient(
+  background:
+    linear-gradient(
       45deg,
       #3993ff 12%,
       transparent 0,
@@ -47,24 +68,79 @@ button {
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  box-shadow: 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
-    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
-    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
-    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
-    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
-    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
-    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
-    0 0 #fff, 0 0 #fff, 0 0 #fff;
-  -moz-animation: 1s bang ease-out backwards, 1s gravity ease-in backwards;
-  -webkit-animation: 1s bang ease-out backwards, 1s gravity ease-in backwards;
-  -o-animation: 1s bang ease-out backwards, 1s gravity ease-in backwards;
-  -ms-animation: 1s bang ease-out backwards, 1s gravity ease-in backwards;
-  animation: 1s bang ease-out backwards, 1s gravity ease-in backwards;
+  box-shadow:
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff,
+    0 0 #fff;
+  -moz-animation:
+    1s bang ease-out backwards,
+    1s gravity ease-in backwards;
+  -webkit-animation:
+    1s bang ease-out backwards,
+    1s gravity ease-in backwards;
+  -o-animation:
+    1s bang ease-out backwards,
+    1s gravity ease-in backwards;
+  -ms-animation:
+    1s bang ease-out backwards,
+    1s gravity ease-in backwards;
+  animation:
+    1s bang ease-out backwards,
+    1s gravity ease-in backwards;
 }
 
 @-webkit-keyframes bang {
   to {
-    box-shadow: 139px -302.6666666667px hsl(193, 100%, 50%),
+    box-shadow:
+      139px -302.6666666667px hsl(193, 100%, 50%),
       -170px -412.6666666667px hsl(141, 100%, 50%),
       -228px -125.6666666667px hsl(1, 100%, 50%),
       177px -88.6666666667px hsl(256, 100%, 50%),
@@ -119,7 +195,8 @@ button {
 }
 @-moz-keyframes bang {
   to {
-    box-shadow: 139px -302.6666666667px hsl(193, 100%, 50%),
+    box-shadow:
+      139px -302.6666666667px hsl(193, 100%, 50%),
       -170px -412.6666666667px hsl(141, 100%, 50%),
       -228px -125.6666666667px hsl(1, 100%, 50%),
       177px -88.6666666667px hsl(256, 100%, 50%),
@@ -174,7 +251,8 @@ button {
 }
 @-o-keyframes bang {
   to {
-    box-shadow: 139px -302.6666666667px hsl(193, 100%, 50%),
+    box-shadow:
+      139px -302.6666666667px hsl(193, 100%, 50%),
       -170px -412.6666666667px hsl(141, 100%, 50%),
       -228px -125.6666666667px hsl(1, 100%, 50%),
       177px -88.6666666667px hsl(256, 100%, 50%),
@@ -229,7 +307,8 @@ button {
 }
 @-ms-keyframes bang {
   to {
-    box-shadow: 139px -302.6666666667px hsl(193, 100%, 50%),
+    box-shadow:
+      139px -302.6666666667px hsl(193, 100%, 50%),
       -170px -412.6666666667px hsl(141, 100%, 50%),
       -228px -125.6666666667px hsl(1, 100%, 50%),
       177px -88.6666666667px hsl(256, 100%, 50%),
@@ -284,7 +363,8 @@ button {
 }
 @keyframes bang {
   to {
-    box-shadow: 139px -302.6666666667px hsl(193, 100%, 50%),
+    box-shadow:
+      139px -302.6666666667px hsl(193, 100%, 50%),
       -170px -412.6666666667px hsl(141, 100%, 50%),
       -228px -125.6666666667px hsl(1, 100%, 50%),
       177px -88.6666666667px hsl(256, 100%, 50%),
